@@ -2,7 +2,7 @@
 #define	MAXLINE 1000
 
 int get_line (char line[], int maxline);
-void copy (char to[], char from[]);
+void reverse (char line[], int maxline);
 
 int main()
 {
@@ -17,26 +17,30 @@ int main()
 		if (len > max)
 		{
 			max = len;
-			copy (longest, line);
-			printf("max: %d\nlongest: %s\n", max, longest);
+			printf("max: %d\n", max);
 		}
+
+		reverse(line, MAXLINE);
 	}
-	if (max > 0)
-		printf("%s\n", longest);
-	
 	return 0;
 }
 
 int get_line (char s[], int lim)
 {
 	int c, line_length;
+	int count = 0;
+
 	for (line_length=0 ; line_length<lim-1 && (c = getchar())!= EOF && c!='\n'; ++line_length)
-		s[line_length] = c;
-	if (c == '\n')
 	{
-		s[line_length]=c;
-//		++i;
+		if (c == '\t' || c == ' ')
+			count ++;		
+		else
+			s[line_length] = c;
 	}
+	line_length = line_length - count;
+
+	if (c == '\n')
+		s[line_length]=c;
 
 	s[line_length]= '\0';
 	
@@ -45,12 +49,14 @@ int get_line (char s[], int lim)
 	return line_length;
 }
 
-void copy(char to[], char from[])
+void reverse(char origin[], int lim)
 {
-	int i;
+	int i, c;
+	char reversed_line[lim];
 
-	i = 0;
-
-	while (to[i] = from[i] != '\0')
-		++i;
+	for (i = get_line(origin, lim); i == 0 && (c = getchar())!= EOF ; i--)
+	{
+		reversed_line[lim] =  c;	
+	}
+	printf("reversed line: %s\n", reversed_line[lim]);
 }
